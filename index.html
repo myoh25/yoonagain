@@ -6,7 +6,7 @@
     <title>Y를 체포해!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Korean&family=IBM+Plex+Sans+KR:wght@400;600&family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=IBM+Plex+Sans+KR:wght@400;600&family=Jua&display=swap" rel="stylesheet">
     <style>
         :root {
             --font-title: 'Noto Sans Korean', sans-serif;
@@ -20,6 +20,7 @@
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; text-align: center;
             user-select: none;
+            box-sizing: border-box;
         }
         .overlay {
             width: 100%; height: 100%;
@@ -32,6 +33,7 @@
         }
         .overlay h1 {
             font-family: var(--font-title);
+            font-weight: 900;
             font-size: 64px; color: #ffc107;
             text-shadow: 4px 4px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
@@ -47,14 +49,15 @@
             color: #000;
             padding: 30px 40px;
             border: 1px solid #999;
-            width: 90%;
+            width: 100%;
             max-width: 700px;
             text-align: left;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            box-sizing: border-box;
         }
         #explanation-content h1 {
             font-family: var(--font-title);
+            font-weight: 900;
             font-size: 36px;
             color: #000;
             text-shadow: none;
@@ -85,12 +88,14 @@
             border-radius: 10px;
             margin-bottom: 20px;
         }
-        #win-screen h1 { font-size: 52px; color: #28a745; margin: 10px 0; }
+        #win-screen h1 { font-size: 52px; color: #28a745; margin: 10px 0; font-weight: 900; }
 
         #game-wrapper {
-            width: 90%; max-width: 600px; padding: 20px 30px 30px 30px;
+            width: 100%;
+            max-width: 600px; padding: 20px;
             border: 1px solid #333; border-radius: 5px; background-color: #fdf5e6;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5); color: #333; position: relative;
+            box-sizing: border-box;
         }
         #game-wrapper::before {
             content: 'TOP SECRET'; position: absolute; top: 15px; right: 20px;
@@ -98,7 +103,7 @@
             border: 2px solid #d9534f; padding: 2px 5px; transform: rotate(10deg);
         }
         #game-wrapper h1 {
-            font-family: var(--font-title); font-size: 42px; color: #333;
+            font-family: var(--font-title); font-weight: 900; font-size: 42px; color: #333;
             border-bottom: 4px double #333; padding-bottom: 10px; margin-bottom: 5px;
         }
         #game-wrapper h2 { font-size: 18px; color: #555; margin-top: 0; margin-bottom: 20px; }
@@ -142,6 +147,7 @@
             font-family: var(--font-ui); font-size: 20px; border: 2px solid #555;
             border-radius: 5px; cursor: pointer; transition: all 0.2s;
             background-color: #f5f5f5; color: #333; box-shadow: 0 3px #999;
+            -webkit-tap-highlight-color: transparent;
         }
         .btn:hover:not(:disabled) { background-color: #e0e0e0; }
         .btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px #666; }
@@ -150,6 +156,49 @@
         #game-status { margin-top: 20px; font-size: 24px; font-weight: bold; height: 30px; }
         .game-over { color: #d9534f; }
         .hidden { display: none !important; }
+
+        /* --- 모바일 최적화 (Mobile Optimization) --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .overlay h1 {
+                font-size: 48px;
+            }
+            #explanation-content {
+                padding: 20px;
+            }
+             #explanation-content h1 {
+                font-size: 28px;
+            }
+             #explanation-content h2 {
+                font-size: 20px;
+            }
+             #explanation-content p, #explanation-content li {
+                font-size: 16px;
+            }
+            
+            #game-wrapper {
+                padding: 15px;
+            }
+            #game-wrapper h1 {
+                font-size: 32px;
+            }
+            #dialog-box {
+                padding: 15px;
+                min-height: 120px;
+                font-size: 18px;
+            }
+            #command-buttons {
+                grid-template-columns: 1fr; /* 버튼을 1열로 쌓음 */
+                gap: 12px;
+            }
+            .btn {
+                padding: 15px;
+                font-size: 22px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -161,24 +210,24 @@
 
     <div id="explanation-screen" class="overlay hidden">
         <div id="explanation-content">
-            <h1>체포 영장 집행 지침</h1>
-            <h2>1. 배경</h2>
+            <h1>체포 작전 지침</h1>
+            <h2>배경</h2>
             <p>피의자 Y, 현재 구치소 내에서 수감 중, 사법 시스템을 조롱하며 모든 수사 협조를 거부하고 있음. 이는 국가 기강을 뒤흔드는 심각한 도전 행위로 간주됨.</p>
-            <h2>2. 임무</h2>
-            <p>귀하는 특별검사팀의 현장 요원으로서, 피의자 Y의 저항을 무력화하고 체포 영장을 집행하여 강제 수사를 개시해야 함.</p>
-            <h2>3. 세부 지침</h2>
+            <h2>임무</h2>
+            <p>귀관은 특별검사팀의 현장 책임자로서, 피의자 Y의 저항을 무력화하고 체포 영장을 집행하여 강제 수사를 개시해야 함.</p>
+            <h2>작전 가이드</h2>
             <p>Y는 극도로 예측 불가능한 인물임. 그의 심리를 파악하고 상황에 맞는 최적의 커맨드를 선택하여 심리적 우위를 점하는 것이 중요.</p>
             <ul>
-                <li>가. <strong>설득:</strong> 논리와 명분을 통해 Y의 협조를 유도.</li>
-                <li>나. <strong>유혹:</strong> Y가 솔깃할 만한 제안으로 그를 회유.</li>
-                <li>다. <strong>강제:</strong> 단호한 태도와 물리적 압박으로 Y를 굴복.</li>
-                <li>라. <strong>초강제:</strong> 모든 수단이 실패했을 시 사용하는 최후의 선택.</li>
+                <li><strong>설득:</strong> 논리와 명분을 통해 Y의 협조를 유도.</li>
+                <li><strong>유혹:</strong> Y가 솔깃할 만한 제안으로 그를 회유.</li>
+                <li><strong>강제:</strong> 단호한 태도와 물리적 압박으로 Y를 굴복.</li>
+                <li><strong>계엄:</strong> 모든 수단이 실패했을 시 사용하는 최후의 선택.</li>
             </ul>
-            <p style="text-align: center; font-weight: 600; margin-top: 25px;">※ 본 작전의 성공에 특검의 명운이 달린 바 실패는 용납되지 않음.  끝.</p>
+            <p style="text-align: center; font-weight: 600; margin-top: 25px;">※ 본 작전의 성공에 특검의 명운이 걸려있다. 실패는 용납되지 않는다.</p>
             <button class="btn" id="btn-continue">집행 개시</button>
         </div>
     </div>
-
+    
     <div id="win-screen" class="overlay hidden">
         <img src="https://i.imgur.com/3k6aBx3.png" alt="체포 성공">
         <h1>체포영장 집행 성공!</h1>
@@ -186,7 +235,7 @@
     </div>
 
     <div id="game-wrapper" class="hidden">
-        <h1>Y 체포 작전</h1> <h2>- 체포 지휘 현장 특별 보고서 -</h2>
+        <h1>Y 체포 작전</h1> <h2>- 체포 영장 지휘 현장 보고서 -</h2>
         <div id="target-area">
              <img id="target" src="https://img4.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202508/04/seouleconomy/20250804161736153smhj.jpg" alt="Y">
         </div>
@@ -199,7 +248,7 @@
             <button class="btn" onclick="sendCommand('설득')">💬 설득</button>
             <button class="btn" onclick="sendCommand('유혹')">🎁 유혹</button>
             <button class="btn" onclick="sendCommand('강제')">✊ 강제</button>
-            <button class="btn" onclick="sendCommand('초강제')">💥 초강제</button>
+            <button class="btn" onclick="sendCommand('계엄')">💥 계엄</button>
             <button class="btn retry-btn hidden" id="btn-fail-retry">🔄 다시 하기</button>
         </div>
         <div id="game-status"></div>
@@ -215,13 +264,13 @@
               commandButtons = document.getElementById('command-buttons'), btnFailRetry = document.getElementById('btn-fail-retry'),
               allButtons = commandButtons.querySelectorAll('button:not(.retry-btn)'), continueIndicator = document.getElementById('continue-indicator');
 
-        const quotes = ["네가 감히 나를 체포해!", "부정선거는 용납하지 않는다!", "종북좌파를 척결해야해", "레거시 미디어는 믿을 수 없다!", "윤 어게인!", "집이 없어 청약통장을 만들지 못했다", "국민을 위해 주120시간 일한 대가가 이것이라니..!!"];
-        const correctSequence = ['설득', '유혹', '유혹', '설득', '강제', '설득', '강제', '초강제'];
+        const quotes = ["네가 감히 나를 체포해!", "부정선거는 용납하지 않는다!", "종북세력을 척결해야해", "레거시 미디어는 믿을 수 없다!", "윤 어게인!"];
+        const correctSequence = ['설득', '유혹', '유혹', '설득', '강제', '설득', '강제', '계엄'];
         const successDialogs = [
-            `P:포토라인에 세우지는 않겠습니다.\nY:정말인가? 사진에 찍히지만 않는다면....!\nN:Y는 고민하는 것 같습니다.`, `P:후딱 조사 끝내고 뜨끈한 국밥 한 그릇에 소주 한잔하셔야지요.\nY:.....꼴깍`, `P:조사를 해야 억울한 점을 소명할 거 아닙니까? 잘 아시잖습니까?\nY:.....그렇군`, `P:전직 국가원수에 대한 예우에 걸맞게 조사할 것입니다. 따라주시지요.\nY:전직... 국가원수..., 오랜만에 듣는군.\nN:Y의 눈이 흔들립니다.`, `P:지금부터 피의자에 대해 물리력을 동원한 체포에 나선다.\nY:에이이이이익!!! 당장 그만두지 못해!!\nN:Y는 극도로 흥분하였다.`, `P:언제까지 이러겠습니까? 얼른 조사 받고 쉬셔야지요.\nY:좀 지치는군. 이제 쉬고 싶어... 조사를 받아도 되지 않을까?\nN:Y의 경계가 풀리는 것 같습니다.`, `P:이 자는 전직 대통령이 아니라 체포를 거부하는 범부다. 끌어내!\nY:무슨 짓이야! 절대 안돼!\nN:Y는 당황하고, 지친 기색이 역력하다.`, `P:피의자, 장난은 끝이다. 4명이서 팔, 다리를 붙잡아서 끌어내!\nY:안돼! 아아아악!! 이럴 순 없어!! 여기는 내 관저야!! 나가!!!\nN:Y는 팔다리가 들어올려져 강제로 차에 태워졌습니다. 체포는 대성공입니다!`
+            `P:포토라인에 세우지는 않겠습니다.\nY:정말인가? 사진에 찍히지만 않는다면....!\nN:Y는 고민하는 것 같습니다.`, `P:후딱 조사 끝내고 뜨끈한 국밥 한 그릇에 소주 한잔하셔야지요.\nY:.....꼴깍`, `P:조사를 해야 억울한 점을 소명할 거 아닙니까? 잘 아시잖습니까?\nY:.....그렇군`, `P:전직 국가원수에 대한 예우에 걸맞게 조사할 것입니다. 따라주시지요.\nY:전직... 국가원수..., 오랜만에 듣는군.\nN:Y의 눈이 흔들립니다.`, `P:지금부터 피의자에 대해 물리력을 동원한 체포에 나선다.\nY:에이이이이익!!! 당장 그만두지 못해!!\nN:Y는 극도로 흥분하였다.`, `P:언제까지 이러겠습니까? 얼른 조사 받고 쉬셔야지요.\nY:좀 지치는군. 이제 쉬고 싶어... 조사를 받아도 되지 않을까?\nN:Y의 경계가 풀리는 것 같습니다.`, `P:이 자는 전직 대통령이 아니라 체포를 거부하는 범부다. 끌어내!\nY:무슨 짓이야! 절대 안돼!\nN:Y는 당황하고, 지친 기색이 역력하다.`, `P:피의자, 장난은 끝이다. 4명이서 팔, 다리를 붙잡아서 끌어내!\nY:안돼! 아아아악!! 이럴 순 없어!! 제발 그만둬!! 이이익!!!\nN:Y는 팔다리가 들어올려져 강제로 차에 태워졌습니다. 체포는 대성공입니다!`
         ];
         const gameOverDialogs = {
-            '설득': `P:웬만하면 따르시지요?\nY:윤 어게인!\nN:당신은 설득에 실패했다.`, '유혹': `P:술 한잔 걸치면 따르시겠습니까?\nY:내가 술에 미친 사람으로 보이나!!`, '강제': `P:지금부터 우리가 지휘합니다. 교도관들은 당장 이 자를 끌어내세요.\nO:괜히 나섰다가 고소만 당하는 게 아닐까?\nN:무리한 체포 지휘에 구치소측이 협조하지 않았습니다.`, '초강제': `P:수단과 방법을 가릴때가 아니다. 테이저건 발사! 고무탄 발사! 공포탄 발사! 실탄 발사!\nY:아아아아아아아아아아악!!!\nN:무리한 강제 집행으로 피의자가 죽었습니다. 이번 사고로 특검은 모든 수사 동력을 잃어버리고 말았습니다.`
+            '설득': `P:웬만하면 따르시지요?\nY:윤 어게인!\nN:당신은 설득에 실패했다.`, '유혹': `P:술 한잔 걸치면 따르시겠습니까?\nY:내가 술에 미친 사람으로 보이나!!`, '강제': `P:지금부터 우리가 지휘합니다. 교도관들은 당장 이 자를 끌어내세요.\nO:괜히 나섰다가 고소만 당하는 게 아닐까?\nN:무리한 체포 지휘에 구치소측이 협조하지 않았습니다.`, '계엄': `P:수단과 방법을 가릴때가 아니다. 테이저건 발사! 고무탄 발사! 공포탄 발사! 실탄 발사!\nY:아아아아아아아아아아악!!!\nN:무리한 강제 집행으로 피의자가 죽었습니다. 이번 사고로 특검은 모든 수사 동력을 잃어버리고 말았습니다.`
         };
 
         let currentStep = 0, isGameOver = false, dialogLines = [], dialogIndex = 0;
@@ -233,8 +282,8 @@
                 const speakerCode = parts[0]; dialogText = parts[1];
                 switch(speakerCode) {
                     case 'P': speakerTag = '<span class="speaker speaker-p">플레이어:</span> '; break;
-                    case 'Y': speakerTag = '<span class="speaker speaker-y">피의자Y:</span> '; break;
-                    case 'N': speakerTag = '<span class="speaker speaker-n">내레이션:</span> '; break;
+                    case 'Y': speakerTag = '<span class="speaker speaker-y">Y:</span> '; break;
+                    case 'N': speakerTag = '<span class="speaker speaker-n">나레이션:</span> '; break;
                     case 'O': speakerTag = '<span class="speaker speaker-o">교도관:</span> '; break;
                 }
             }
